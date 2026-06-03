@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>La Marmite d'Entreprise - Édition Compétitive</title>
+    <title>La Marmite d'Entreprise - Édition Compétitive & Skins</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
     
     <style>
@@ -29,53 +29,18 @@
             transition: background 1s ease;
         }
 
-        /* --- CLASSEMENT (Nouveau panneau à droite) --- */
+        /* --- CLASSEMENT --- */
         .leaderboard-panel {
-            position: absolute;
-            top: 30px;
-            right: 30px;
-            width: 320px;
-            background: var(--glass-bg);
-            backdrop-filter: blur(15px);
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
-            padding: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            z-index: 50;
-            transition: opacity 0.5s;
-            opacity: 0; /* Masqué jusqu'à la connexion */
+            position: absolute; top: 30px; right: 30px; width: 320px;
+            background: var(--glass-bg); backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border); border-radius: 20px; padding: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5); z-index: 50;
+            transition: opacity 0.5s; opacity: 0; 
         }
-
-        .leaderboard-panel h3 {
-            margin: 0 0 15px 0;
-            font-size: 1.2rem;
-            color: #3498db;
-            text-align: center;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            text-shadow: 0 0 10px rgba(52, 152, 219, 0.5);
-        }
-
-        .lb-player {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: rgba(0,0,0,0.4);
-            margin-bottom: 8px;
-            padding: 10px 15px;
-            border-radius: 10px;
-            border: 1px solid rgba(255,255,255,0.05);
-        }
-
-        .lb-player.current-user {
-            background: linear-gradient(90deg, rgba(0, 255, 170, 0.2), transparent);
-            border: 1px solid rgba(0, 255, 170, 0.5);
-            font-weight: bold;
-            box-shadow: inset 4px 0 0 #00ffaa;
-        }
-
-        .lb-rank { font-weight: bold; color: #aaa; width: 25px; }
-        .lb-name { flex-grow: 1; margin-left: 10px; }
+        .leaderboard-panel h3 { margin: 0 0 15px 0; font-size: 1.2rem; color: #3498db; text-align: center; text-transform: uppercase; letter-spacing: 1px; text-shadow: 0 0 10px rgba(52, 152, 219, 0.5); }
+        .lb-player { display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.4); margin-bottom: 8px; padding: 10px 15px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.05); }
+        .lb-player.current-user { background: linear-gradient(90deg, rgba(0, 255, 170, 0.2), transparent); border: 1px solid rgba(0, 255, 170, 0.5); font-weight: bold; box-shadow: inset 4px 0 0 #00ffaa; }
+        .lb-rank { font-weight: bold; color: #aaa; width: 25px; } .lb-name { flex-grow: 1; margin-left: 10px; }
         .lb-score { background: rgba(255,255,255,0.1); padding: 4px 10px; border-radius: 12px; font-size: 0.9rem; font-weight: bold; }
 
         /* --- PASSE DE COMBAT --- */
@@ -86,7 +51,6 @@
             padding: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
             z-index: 50; opacity: 0; transition: opacity 0.5s;
         }
-
         .battle-pass h3 { margin: 0 0 15px 0; font-size: 1.2rem; color: #f1c40f; text-align: center; text-transform: uppercase; letter-spacing: 1px; text-shadow: 0 0 10px rgba(241, 196, 15, 0.5); }
         .bp-tier { display: flex; align-items: center; gap: 12px; background: rgba(0,0,0,0.4); margin-bottom: 10px; padding: 12px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); transition: all 0.3s; color: rgba(255,255,255,0.5); }
         .bp-tier.unlocked { background: linear-gradient(90deg, rgba(0, 255, 170, 0.1), transparent); border: 1px solid rgba(0, 255, 170, 0.3); color: white; box-shadow: inset 5px 0 0 #00ffaa; transform: scale(1.02); }
@@ -95,30 +59,60 @@
         .bp-reward { font-size: 0.95rem; font-weight: 600; }
 
         /* --- UI PRINCIPALE --- */
-        .main-app-container {
-            display: flex; flex-direction: column; align-items: center; opacity: 0; pointer-events: none; transition: opacity 0.5s;
-        }
+        .main-app-container { display: flex; flex-direction: column; align-items: center; opacity: 0; pointer-events: none; transition: opacity 0.5s; }
         .main-app-container.active { opacity: 1; pointer-events: auto; }
-
         .status-panel { margin-bottom: 20px; font-size: 1.4rem; font-weight: 600; color: rgba(255, 255, 255, 0.7); text-align: center; height: 35px; transition: all 0.3s; text-shadow: 0 0 10px rgba(0,0,0,0.5); z-index: 10; }
         .controls { margin-bottom: 40px; z-index: 10; display: flex; flex-direction: column; gap: 20px; background: var(--glass-bg); backdrop-filter: blur(15px); padding: 25px 35px; border-radius: 20px; border: 1px solid var(--glass-border); box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5); width: 380px; }
-        
         input[type="file"] { display: none; }
         button { padding: 14px 24px; font-size: 16px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.2); cursor: pointer; font-weight: 600; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; gap: 10px; background: linear-gradient(135deg, #00b09b, #96c93d); color: white; width: 100%; box-shadow: 0 4px 15px rgba(0, 255, 170, 0.3); }
         button:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0, 255, 170, 0.5); }
         button:active { transform: scale(0.97); }
-
         .progress-container { width: 100%; height: 14px; background: rgba(0,0,0,0.6); border-radius: 10px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); }
         .progress-bar { height: 100%; width: 0%; background: linear-gradient(90deg, #f1c40f, #f39c12); transition: background 0.3s; border-radius: 10px; }
         .progress-bar.danger { background: linear-gradient(90deg, #ff4757, #ff6b81); }
         .progress-bar.perfect { background: linear-gradient(90deg, #00ffaa, #00b09b); }
 
-        /* --- LA MARMITE --- */
+        /* --- LA MARMITE ET LES SKINS --- */
         .cauldron-wrapper { position: relative; z-index: 5; transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.5s; }
-        .marmite { width: 400px; height: 400px; border-radius: 50%; position: relative; border: 18px solid #2d3436; border-top-color: #4a5459; border-bottom-color: #1a1e1f; background: #0a0a0a; box-shadow: 0 30px 50px rgba(0,0,0,0.8), inset 0 30px 40px rgba(0,0,0,0.9), 0 0 80px rgba(0, 255, 170, 0.1); overflow: hidden; cursor: grab; touch-action: none; }
+        
+        .marmite { 
+            width: 400px; height: 400px; border-radius: 50%; position: relative; 
+            border: 18px solid #2d3436; border-top-color: #4a5459; border-bottom-color: #1a1e1f; 
+            background: #0a0a0a; 
+            box-shadow: 0 30px 50px rgba(0,0,0,0.8), inset 0 30px 40px rgba(0,0,0,0.9), 0 0 80px rgba(0, 255, 170, 0.1); 
+            overflow: hidden; cursor: grab; touch-action: none; 
+            transition: all 1s ease; /* Transition douce entre les skins */
+        }
+        
+        /* Skin Niveau 1: Bronze */
+        .marmite.skin-1 {
+            border-color: #cd7f32; border-top-color: #d89656; border-bottom-color: #a05c17;
+            box-shadow: 0 30px 50px rgba(0,0,0,0.8), inset 0 30px 40px rgba(0,0,0,0.9), 0 0 80px rgba(205, 127, 50, 0.4);
+        }
+        /* Skin Niveau 2: Argent */
+        .marmite.skin-2 {
+            border-color: #bdc3c7; border-top-color: #ecf0f1; border-bottom-color: #7f8c8d;
+            box-shadow: 0 30px 50px rgba(0,0,0,0.8), inset 0 30px 40px rgba(0,0,0,0.9), 0 0 80px rgba(189, 195, 199, 0.5);
+        }
+        /* Skin Niveau 3: Or */
+        .marmite.skin-3 {
+            border-color: #f1c40f; border-top-color: #f39c12; border-bottom-color: #b8860b;
+            box-shadow: 0 30px 50px rgba(0,0,0,0.8), inset 0 30px 40px rgba(0,0,0,0.9), 0 0 100px rgba(241, 196, 15, 0.6);
+        }
+        /* Skin Niveau 4: Améthyste Magique */
+        .marmite.skin-4 {
+            border-color: #9b59b6; border-top-color: #af7ac5; border-bottom-color: #5b2c6f;
+            box-shadow: 0 30px 50px rgba(0,0,0,0.8), inset 0 30px 40px rgba(0,0,0,0.9), 0 0 120px rgba(155, 89, 182, 0.8);
+        }
+        /* Skin Niveau 5+: Galactique / Cybernétique */
+        .marmite.skin-5 {
+            border-color: #00ffaa; border-top-color: #00b09b; border-bottom-color: #004d40;
+            box-shadow: 0 30px 50px rgba(0,0,0,0.8), inset 0 30px 40px rgba(0,0,0,0.9), 0 0 150px rgba(0, 255, 170, 1);
+        }
+
         .marmite:active { cursor: grabbing; }
 
-        .shaking-light { animation: shake 0.3s infinite; } .shaking-hard { animation: shake-violent 0.05s infinite; border-color: #ff4757;}
+        .shaking-light { animation: shake 0.3s infinite; } .shaking-hard { animation: shake-violent 0.05s infinite; border-color: #ff4757 !important;}
         @keyframes shake { 0%, 100% { transform: translate(0,0) rotate(0deg); } 25% { transform: translate(1px,1px) rotate(0.5deg); } 75% { transform: translate(-1px,-1px) rotate(-0.5deg); } }
         @keyframes shake-violent { 0% { transform: translate(3px,2px) rotate(0deg); } 20% { transform: translate(-3px,-4px) rotate(-2deg); } 100% { transform: translate(-2px,3px) rotate(-2deg); } }
 
@@ -133,29 +127,23 @@
         .bubble { position: absolute; background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.8), rgba(255,255,255,0.1)); border: 1px solid rgba(255,255,255,0.3); border-radius: 50%; animation: rise 3s infinite ease-in; pointer-events: none; box-shadow: 0 0 10px rgba(0, 255, 170, 0.5); }
         @keyframes rise { 0% { transform: translateY(0) scale(1); opacity: 0; } 50% { opacity: 1; } 100% { transform: translateY(-120px) scale(1.5); opacity: 0; } }
 
-        /* --- MODALES (Accueil, Nommage, Fin) --- */
+        /* --- MODALES --- */
         .glass-modal {
             position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0);
             background: var(--glass-bg); backdrop-filter: blur(20px); border: 2px solid rgba(255,255,255,0.2);
             padding: 40px 60px; border-radius: 20px; text-align: center; box-shadow: 0 20px 70px rgba(0,0,0,0.8);
-            z-index: 100; opacity: 0; transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); pointer-events: none;
-            display: flex; flex-direction: column; align-items: center;
+            z-index: 100; opacity: 0; transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); pointer-events: none; display: flex; flex-direction: column; align-items: center;
         }
         .glass-modal.active { transform: translate(-50%, -50%) scale(1); opacity: 1; pointer-events: auto; }
-        
         .glass-modal h2 { margin-top: 0; color: #00ffaa; font-size: 2.5rem; text-shadow: 0 0 15px rgba(0,255,170,0.5);}
         .glass-modal p { font-size: 1.2rem; margin-bottom: 25px; color: #dcdde1;}
-        
         .glass-input { width: 100%; padding: 15px; font-size: 1.5rem; border-radius: 12px; border: 1px solid rgba(255,255,255,0.3); background: rgba(0,0,0,0.5); color: white; text-align: center; outline: none; margin-bottom: 25px; box-shadow: inset 0 2px 10px rgba(0,0,0,0.5); }
         .glass-input:focus { border-color: #00ffaa; box-shadow: 0 0 15px rgba(0,255,170,0.3), inset 0 2px 10px rgba(0,0,0,0.5); }
-
         #finalCompanyName { margin: 0; font-size: 4rem; font-weight: 800; text-shadow: 0 0 20px rgba(0,255,170,0.8); color: #00ffaa;}
         .btn-reset { margin-top: 30px; background: linear-gradient(135deg, #8e44ad, #9b59b6); width: auto; padding: 14px 30px; }
-
         .flash-bang { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-color: white; z-index: 999; opacity: 0; pointer-events: none; }
         .flash-bang.explode { animation: flashAnim 1.5s ease-out forwards; }
         @keyframes flashAnim { 0% { opacity: 1; } 100% { opacity: 0; } }
-        
         .confetti { position: absolute; top: -20px; z-index: 90; transform-origin: center; animation: fall linear forwards; }
         @keyframes fall { to { transform: translateY(110vh) rotate(720deg) rotateX(360deg); } }
 
@@ -172,24 +160,22 @@
 
     <div class="leaderboard-panel" id="leaderboardPanel">
         <h3>🏆 Top Créateurs</h3>
-        <div id="leaderboardList">
-            </div>
+        <div id="leaderboardList"></div>
     </div>
 
     <div class="battle-pass" id="battlePassPanel">
         <h3>⭐ Ton Passe d'Entrepreneur</h3>
-        <div class="bp-tier" id="tier-1"><span class="bp-icon">🔒</span><div class="bp-text"><span class="bp-level">NIVEAU 1</span><span class="bp-reward">Micro-Entreprise</span></div></div>
-        <div class="bp-tier" id="tier-2"><span class="bp-icon">🔒</span><div class="bp-text"><span class="bp-level">NIVEAU 2</span><span class="bp-reward">Incubateur Débloqué</span></div></div>
-        <div class="bp-tier" id="tier-3"><span class="bp-icon">🔒</span><div class="bp-text"><span class="bp-level">NIVEAU 3</span><span class="bp-reward">Levée de Fonds (Série A)</span></div></div>
-        <div class="bp-tier" id="tier-4"><span class="bp-icon">🔒</span><div class="bp-text"><span class="bp-level">NIVEAU 4</span><span class="bp-reward">Entrée en Bourse</span></div></div>
-        <div class="bp-tier" id="tier-5"><span class="bp-icon">🔒</span><div class="bp-text"><span class="bp-level">NIVEAU MAX</span><span class="bp-reward">Statut Licorne 🦄</span></div></div>
+        <div class="bp-tier" id="tier-1"><span class="bp-icon">🔒</span><div class="bp-text"><span class="bp-level">NIVEAU 1</span><span class="bp-reward">Micro-Entreprise (Skin Bronze)</span></div></div>
+        <div class="bp-tier" id="tier-2"><span class="bp-icon">🔒</span><div class="bp-text"><span class="bp-level">NIVEAU 2</span><span class="bp-reward">Incubateur (Skin Argent)</span></div></div>
+        <div class="bp-tier" id="tier-3"><span class="bp-icon">🔒</span><div class="bp-text"><span class="bp-level">NIVEAU 3</span><span class="bp-reward">Série A (Skin Or)</span></div></div>
+        <div class="bp-tier" id="tier-4"><span class="bp-icon">🔒</span><div class="bp-text"><span class="bp-level">NIVEAU 4</span><span class="bp-reward">En Bourse (Skin Améthyste)</span></div></div>
+        <div class="bp-tier" id="tier-5"><span class="bp-icon">🔒</span><div class="bp-text"><span class="bp-level">NIVEAU MAX</span><span class="bp-reward">Licorne 🦄 (Skin Galactique)</span></div></div>
     </div>
 
     <div class="flash-bang" id="flashBang"></div>
 
     <div class="main-app-container" id="mainApp">
         <div class="status-panel" id="statusPanel">La Marmite est vide...</div>
-
         <div class="controls">
             <input type="file" id="fileInput" multiple>
             <button onclick="document.getElementById('fileInput').click()">
@@ -197,7 +183,6 @@
             </button>
             <div class="progress-container"><div class="progress-bar" id="progressBar"></div></div>
         </div>
-
         <div class="cauldron-wrapper" id="cauldronWrapper">
             <div class="marmite" id="marmite">
                 <div class="potion" id="potion"><div class="vortex"></div></div>
@@ -219,11 +204,9 @@
     </div>
 
     <script>
-        // --- DONNÉES DU CLASSEMENT ---
         let currentPlayer = "";
         let leaderboardData = [];
         
-        // --- VARIABLES DE L'APP ---
         const fileInput = document.getElementById('fileInput');
         const potion = document.getElementById('potion');
         const statusPanel = document.getElementById('statusPanel');
@@ -233,7 +216,6 @@
         const flashBang = document.getElementById('flashBang');
         const mainApp = document.getElementById('mainApp');
         
-        // Modales
         const loginModal = document.getElementById('loginModal');
         const playerNameInput = document.getElementById('playerNameInput');
         const namingModal = document.getElementById('namingModal');
@@ -244,85 +226,58 @@
         const battlePassPanel = document.getElementById('battlePassPanel');
         const leaderboardList = document.getElementById('leaderboardList');
 
-        let items = [];
-        let isCreated = false; 
-        let companiesCreatedCount = 0;
-        
-        // Remuage
-        let isStirring = false;
-        let lastMouseAngle = 0;
-        let currentSpeedRaw = 0;
-        let smoothedSpeed = 0;   
-        let currentProgress = 0;
-        const MIN_SPEED = 0.03;
-        const MAX_SPEED = 0.18;
+        let items = []; let isCreated = false; let companiesCreatedCount = 0;
+        let isStirring = false; let lastMouseAngle = 0; let currentSpeedRaw = 0;
+        let smoothedSpeed = 0; let currentProgress = 0;
+        const MIN_SPEED = 0.03; const MAX_SPEED = 0.18;
 
-        // --- 1. INITIALISATION & CONNEXION ---
         playerNameInput.addEventListener('keypress', (e) => { if(e.key === 'Enter') login(); });
         
         function login() {
             let name = playerNameInput.value.trim();
-            if(!name) return; // Empêche de valider à vide
-
+            if(!name) return;
             currentPlayer = name;
-            
-            // Masquer l'écran de connexion et afficher l'app
             loginModal.classList.remove('active');
             mainApp.classList.add('active');
             leaderboardPanel.style.opacity = '1';
             battlePassPanel.style.opacity = '1';
-
             initLeaderboard();
-            gameLoop(); // Lancer la boucle seulement après la connexion
+            gameLoop(); 
         }
 
         function initLeaderboard() {
-            // Récupérer les données du navigateur s'il y en a
             const savedData = localStorage.getItem('marmiteLeaderboard');
-            
             if (savedData) {
                 leaderboardData = JSON.parse(savedData);
             } else {
-                // S'il n'y a rien, on génère de faux concurrents pour le fun
                 leaderboardData = [
-                    { name: "Elon M.", score: 5 },
-                    { name: "Xavier N.", score: 3 },
-                    { name: "Marc Z.", score: 2 }
+                    { name: "Elon M.", score: 5 }, { name: "Xavier N.", score: 3 }, { name: "Marc Z.", score: 2 }
                 ];
             }
-
-            // Vérifier si le joueur actuel existe déjà dans la base
             const existingPlayer = leaderboardData.find(p => p.name.toLowerCase() === currentPlayer.toLowerCase());
             if (existingPlayer) {
-                companiesCreatedCount = existingPlayer.score; // On restaure son niveau de Battle Pass
+                companiesCreatedCount = existingPlayer.score; 
                 restoreBattlePass(companiesCreatedCount);
+                updateCauldronSkin(companiesCreatedCount);
             } else {
-                // Ajouter le nouveau joueur avec 0
                 leaderboardData.push({ name: currentPlayer, score: 0 });
                 companiesCreatedCount = 0;
+                updateCauldronSkin(0);
             }
-
             saveAndRenderLeaderboard();
         }
 
         function saveAndRenderLeaderboard() {
-            // Sauvegarder dans le navigateur
             localStorage.setItem('marmiteLeaderboard', JSON.stringify(leaderboardData));
-
-            // Trier par score (du plus grand au plus petit)
             leaderboardData.sort((a, b) => b.score - a.score);
-
-            // Générer le HTML (on prend les 6 premiers max)
             leaderboardList.innerHTML = '';
             const topPlayers = leaderboardData.slice(0, 6);
-
             topPlayers.forEach((player, index) => {
                 const isMe = player.name.toLowerCase() === currentPlayer.toLowerCase();
                 let rankDisplay = index + 1;
                 if(index === 0) rankDisplay = "🥇";
                 if(index === 1) rankDisplay = "🥈";
                 if(index === 2) rankDisplay = "🥉";
-
                 leaderboardList.innerHTML += `
                     <div class="lb-player ${isMe ? 'current-user' : ''}">
                         <div class="lb-rank">${rankDisplay}</div>
@@ -333,11 +288,20 @@
             });
         }
 
-        // Bulles d'ambiance
+        // --- GESTION DU SKIN DE LA MARMITE ---
+        function updateCauldronSkin(level) {
+            // Retirer tous les anciens skins
+            marmite.className = "marmite";
+            // Limiter à 5 pour le skin max
+            let skinLevel = Math.min(level, 5);
+            if (skinLevel > 0) {
+                marmite.classList.add(`skin-${skinLevel}`);
+            }
+        }
+
         for(let i=0; i<20; i++) createBubble();
         function createBubble() {
-            const bubble = document.createElement('div');
-            bubble.className = 'bubble';
+            const bubble = document.createElement('div'); bubble.className = 'bubble';
             const size = Math.random() * 12 + 4;
             bubble.style.width = size + 'px'; bubble.style.height = size + 'px';
             bubble.style.left = (Math.random() * 80 + 10) + '%'; bubble.style.top = (Math.random() * 80 + 10) + '%';
@@ -345,7 +309,6 @@
             potion.appendChild(bubble);
         }
 
-        // --- GESTION DES FICHIERS ---
         function getFileInfo(fileName) {
             const ext = fileName.split('.').pop().toLowerCase();
             if (['pdf'].includes(ext)) return { icon: '📕', class: 'type-pdf' };
@@ -359,48 +322,34 @@
             if(isCreated) return;
             const files = e.target.files;
             for(let i = 0; i < files.length; i++) addFileToMarmite(files[i].name);
-            fileInput.value = ''; 
-            updateLogicState();
+            fileInput.value = ''; updateLogicState();
         });
 
         function addFileToMarmite(fileName) {
             let displayName = fileName.length > 12 ? fileName.substring(0, 9) + '...' : fileName;
             const fileData = getFileInfo(fileName);
             const span = document.createElement('span');
-            span.className = `file-item ${fileData.class}`;
-            span.innerHTML = `<span>${fileData.icon}</span> ${displayName}`;
-            
-            const itemObj = {
-                el: span, angle: Math.random() * Math.PI * 2,
-                radius: Math.random() * 110 + 10, baseSpeed: 0.005 + Math.random() * 0.01, 
-                centerX: 200, centerY: 200
-            };
+            span.className = `file-item ${fileData.class}`; span.innerHTML = `<span>${fileData.icon}</span> ${displayName}`;
+            const itemObj = { el: span, angle: Math.random() * Math.PI * 2, radius: Math.random() * 110 + 10, baseSpeed: 0.005 + Math.random() * 0.01, centerX: 200, centerY: 200 };
             items.push(itemObj); potion.appendChild(span); updatePosition(itemObj);
         }
 
         function updateLogicState() {
             if (isStirring) return; 
-            if (items.length === 0) {
-                statusPanel.innerText = "La Marmite est vide..."; statusPanel.style.color = "rgba(255, 255, 255, 0.7)";
-            } else if (items.length === 1) {
-                statusPanel.innerText = "Encore 1 document requis..."; statusPanel.style.color = "#f1c40f";
-            } else {
-                statusPanel.innerText = "Cliquez et tournez dans la marmite !"; statusPanel.style.color = "#00ffaa";
-            }
+            if (items.length === 0) { statusPanel.innerText = "La Marmite est vide..."; statusPanel.style.color = "rgba(255, 255, 255, 0.7)"; } 
+            else if (items.length === 1) { statusPanel.innerText = "Encore 1 document requis..."; statusPanel.style.color = "#f1c40f"; } 
+            else { statusPanel.innerText = "Cliquez et tournez dans la marmite !"; statusPanel.style.color = "#00ffaa"; }
         }
 
         function updatePosition(w) {
             const x = w.centerX + w.radius * Math.cos(w.angle); const y = w.centerY + w.radius * Math.sin(w.angle);
-            w.el.style.left = x + 'px'; w.el.style.top = y + 'px';
-            w.el.style.transform = `translate(-50%, -50%) rotate(${w.angle * 0.4}rad)`;
+            w.el.style.left = x + 'px'; w.el.style.top = y + 'px'; w.el.style.transform = `translate(-50%, -50%) rotate(${w.angle * 0.4}rad)`;
         }
 
-        // --- MATHS DE LA SOURIS ---
         function getMouseAngle(e) {
             const rect = marmite.getBoundingClientRect();
             const centerX = rect.left + rect.width / 2; const centerY = rect.top + rect.height / 2;
-            const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-            const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+            const clientX = e.touches ? e.touches[0].clientX : e.clientX; const clientY = e.touches ? e.touches[0].clientY : e.clientY;
             return Math.atan2(clientY - centerY, clientX - centerX);
         }
 
@@ -410,30 +359,24 @@
 
         function startDrag(e) {
             if (isCreated || items.length < 2) return;
-            isStirring = true; lastMouseAngle = getMouseAngle(e);
-            cauldronWrapper.classList.add('shaking-light');
+            isStirring = true; lastMouseAngle = getMouseAngle(e); cauldronWrapper.classList.add('shaking-light');
         }
 
         function drag(e) {
             if (!isStirring || isCreated) return;
-            const currentAngle = getMouseAngle(e);
-            let delta = currentAngle - lastMouseAngle;
+            const currentAngle = getMouseAngle(e); let delta = currentAngle - lastMouseAngle;
             if (delta > Math.PI) delta -= Math.PI * 2; if (delta < -Math.PI) delta += Math.PI * 2;
             currentSpeedRaw = delta; lastMouseAngle = currentAngle;
         }
 
         function stopDrag() {
-            isStirring = false;
-            cauldronWrapper.classList.remove('shaking-light', 'shaking-hard');
+            isStirring = false; cauldronWrapper.classList.remove('shaking-light', 'shaking-hard');
             potion.classList.remove('boiling-danger'); updateLogicState();
         }
 
         function gameLoop() {
             if (isCreated) return;
-            
-            smoothedSpeed = smoothedSpeed * 0.9 + Math.abs(currentSpeedRaw) * 0.1;
-            currentSpeedRaw *= 0.8;
-
+            smoothedSpeed = smoothedSpeed * 0.9 + Math.abs(currentSpeedRaw) * 0.1; currentSpeedRaw *= 0.8;
             if (isStirring && items.length >= 2) {
                 if (smoothedSpeed < MIN_SPEED) {
                     statusPanel.innerText = "Tournez un peu plus vite..."; statusPanel.style.color = "#f39c12";
@@ -459,91 +402,65 @@
             });
             
             progressBar.style.width = currentProgress + '%';
-            
             if (currentProgress >= 100) { triggerPhase1(); return; }
             requestAnimationFrame(gameLoop);
         }
 
-        // --- PHASE 1 : Flash et Demande du Nom ---
         function triggerPhase1() {
-            isCreated = true; stopDrag();
-            flashBang.classList.add('explode');
+            isCreated = true; stopDrag(); flashBang.classList.add('explode');
             document.body.style.background = 'radial-gradient(circle at 50% 50%, #1a1a2e 0%, #000000 100%)';
-            mainApp.classList.remove('active'); // Cache les contrôles
-            
+            mainApp.classList.remove('active'); 
             setTimeout(() => {
-                companyNameInput.value = ''; 
-                namingModal.classList.add('active');
-                companyNameInput.focus();
+                companyNameInput.value = ''; namingModal.classList.add('active'); companyNameInput.focus();
             }, 500);
         }
 
         companyNameInput.addEventListener('keypress', function (e) { if (e.key === 'Enter') submitName(); });
 
-        // --- PHASE 2 : Validation du nom et Message final ---
         function submitName() {
-            let name = companyNameInput.value.trim();
-            if (!name) name = "Start-up Sans Nom";
+            let name = companyNameInput.value.trim(); if (!name) name = "Start-up Sans Nom";
+            namingModal.classList.remove('active'); finalCompanyName.innerText = name;
 
-            namingModal.classList.remove('active');
-            finalCompanyName.innerText = name;
-
-            // Mise à jour du Score dans le classement
             let playerObj = leaderboardData.find(p => p.name.toLowerCase() === currentPlayer.toLowerCase());
             if (playerObj) {
                 playerObj.score += 1;
                 companiesCreatedCount = playerObj.score;
             }
-            saveAndRenderLeaderboard(); // Rafraîchit l'affichage à droite
-            
-            // Mise à jour du Battle Pass
+            saveAndRenderLeaderboard(); 
             unlockBattlePassTier(companiesCreatedCount);
+            
+            // Mise à jour du skin de la marmite (sera visible à la prochaine partie)
+            updateCauldronSkin(companiesCreatedCount);
 
-            launchConfetti();
-            setTimeout(() => { finalMessage.classList.add('active'); }, 300);
+            launchConfetti(); setTimeout(() => { finalMessage.classList.add('active'); }, 300);
         }
 
-        // --- GESTION DU PASSE DE COMBAT ---
         function unlockBattlePassTier(level) {
             if (level > 5) return; 
             const tierEl = document.getElementById(`tier-${level}`);
             if (tierEl && !tierEl.classList.contains('unlocked')) {
-                tierEl.classList.add('unlocked');
-                tierEl.querySelector('.bp-icon').innerText = '✅';
-                tierEl.style.transform = 'scale(1.1)';
-                setTimeout(() => tierEl.style.transform = 'scale(1.02)', 300);
+                tierEl.classList.add('unlocked'); tierEl.querySelector('.bp-icon').innerText = '✅';
+                tierEl.style.transform = 'scale(1.1)'; setTimeout(() => tierEl.style.transform = 'scale(1.02)', 300);
             }
         }
 
         function restoreBattlePass(score) {
-            // Lors d'une reconnexion, débloque visuellement les niveaux déjà acquis
             for(let i = 1; i <= score; i++) {
                 if (i > 5) break;
                 const tierEl = document.getElementById(`tier-${i}`);
-                if (tierEl) {
-                    tierEl.classList.add('unlocked');
-                    tierEl.querySelector('.bp-icon').innerText = '✅';
-                }
+                if (tierEl) { tierEl.classList.add('unlocked'); tierEl.querySelector('.bp-icon').innerText = '✅'; }
             }
         }
 
-        // --- RÉINITIALISATION ---
         function resetApp() {
             isCreated = false; items = []; currentProgress = 0; isStirring = false;
             document.querySelectorAll('.file-item').forEach(el => el.remove());
             document.querySelectorAll('.confetti').forEach(el => el.remove());
-
-            finalMessage.classList.remove('active');
-            mainApp.classList.add('active'); // Réaffiche la marmite
-            
-            cauldronWrapper.style.transform = 'scale(1) translateY(0)';
-            cauldronWrapper.style.opacity = '1';
-            
+            finalMessage.classList.remove('active'); mainApp.classList.add('active'); 
+            cauldronWrapper.style.transform = 'scale(1) translateY(0)'; cauldronWrapper.style.opacity = '1';
             progressBar.style.width = '0%'; progressBar.className = 'progress-bar';
             document.body.style.background = 'radial-gradient(circle at 50% 50%, #2b1055 0%, #000000 100%)';
-            
-            updateLogicState();
-            gameLoop();
+            updateLogicState(); gameLoop();
         }
 
         function launchConfetti() {
@@ -557,8 +474,7 @@
                 conf.style.left = Math.random() * 100 + 'vw';
                 const duration = Math.random() * 3 + 2.5; 
                 conf.style.animationDuration = duration + 's'; conf.style.animationDelay = (Math.random() * 1) + 's'; 
-                document.body.appendChild(conf);
-                setTimeout(() => conf.remove(), (duration + 1) * 1000);
+                document.body.appendChild(conf); setTimeout(() => conf.remove(), (duration + 1) * 1000);
             }
         }
     </script>
