@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>La Marmite d'Entreprise - Édition Magique</title>
-    <!-- Importation d'une police moderne (Google Fonts) -->
+    <title>La Marmite d'Entreprise - Édition Passe de Combat</title>
+    <!-- Police moderne -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
     
     <style>
@@ -15,13 +15,9 @@
             --glass-border: rgba(255, 255, 255, 0.1);
         }
 
-        * {
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
+        * { box-sizing: border-box; font-family: 'Poppins', sans-serif; }
 
         body {
-            /* Fond d'ambiance mystique */
             background: radial-gradient(circle at 50% 50%, #2b1055 0%, #000000 100%);
             color: white;
             display: flex;
@@ -35,7 +31,60 @@
             transition: background 1s ease;
         }
 
-        /* --- UI & GLASSMORPHISM --- */
+        /* --- PASSE DE COMBAT (Nouveau) --- */
+        .battle-pass {
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            width: 320px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            z-index: 50;
+        }
+
+        .battle-pass h3 {
+            margin: 0 0 15px 0;
+            font-size: 1.2rem;
+            color: #f1c40f;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-shadow: 0 0 10px rgba(241, 196, 15, 0.5);
+        }
+
+        .bp-tier {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(0,0,0,0.4);
+            margin-bottom: 10px;
+            padding: 12px;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: all 0.3s;
+            color: rgba(255,255,255,0.5);
+        }
+
+        .bp-tier.unlocked {
+            background: linear-gradient(90deg, rgba(0, 255, 170, 0.1), transparent);
+            border: 1px solid rgba(0, 255, 170, 0.3);
+            color: white;
+            box-shadow: inset 5px 0 0 #00ffaa;
+            transform: scale(1.02);
+        }
+
+        .bp-icon { font-size: 1.5rem; }
+        .bp-text { display: flex; flex-direction: column; }
+        .bp-level { font-size: 0.7rem; color: #aaa; font-weight: bold; }
+        .bp-unlocked .bp-level { color: #00ffaa; }
+        .bp-reward { font-size: 0.95rem; font-weight: 600; }
+
+        /* --- UI PRINCIPALE --- */
         .status-panel {
             margin-bottom: 20px;
             font-size: 1.4rem;
@@ -56,7 +105,6 @@
             gap: 20px;
             background: var(--glass-bg);
             backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
             padding: 25px 35px;
             border-radius: 20px;
             border: 1px solid var(--glass-border);
@@ -86,190 +134,113 @@
             box-shadow: 0 4px 15px rgba(0, 255, 170, 0.3);
         }
         
-        button:hover { 
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0, 255, 170, 0.5);
-            border-color: rgba(255,255,255,0.5);
-        }
+        button:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0, 255, 170, 0.5); }
         button:active { transform: scale(0.97); }
-
-        .btn-reset {
-            margin-top: 30px;
-            background: linear-gradient(135deg, #8e44ad, #9b59b6);
-            box-shadow: 0 4px 15px rgba(142, 68, 173, 0.4);
-            width: auto;
-            padding: 14px 30px;
-        }
-
-        .btn-reset:hover {
-            box-shadow: 0 6px 20px rgba(142, 68, 173, 0.6);
-        }
 
         /* Jauge de progression */
         .progress-container {
-            width: 100%;
-            height: 14px;
+            width: 100%; height: 14px;
             background: rgba(0,0,0,0.6);
-            border-radius: 10px;
-            overflow: hidden;
+            border-radius: 10px; overflow: hidden;
             border: 1px solid rgba(255,255,255,0.1);
-            box-shadow: inset 0 2px 5px rgba(0,0,0,0.8);
         }
-
         .progress-bar {
-            height: 100%;
-            width: 0%;
+            height: 100%; width: 0%;
             background: linear-gradient(90deg, #f1c40f, #f39c12);
             transition: background 0.3s;
-            box-shadow: 0 0 15px #f1c40f;
             border-radius: 10px;
         }
-
-        .progress-bar.danger { background: linear-gradient(90deg, #ff4757, #ff6b81); box-shadow: 0 0 15px #ff4757; }
-        .progress-bar.perfect { background: linear-gradient(90deg, #00ffaa, #00b09b); box-shadow: 0 0 15px #00ffaa; }
+        .progress-bar.danger { background: linear-gradient(90deg, #ff4757, #ff6b81); }
+        .progress-bar.perfect { background: linear-gradient(90deg, #00ffaa, #00b09b); }
 
         /* --- LA MARMITE 3D --- */
         .cauldron-wrapper {
-            position: relative;
-            z-index: 5;
+            position: relative; z-index: 5;
             transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.5s;
         }
 
-        .cauldron-handle {
-            position: absolute;
-            top: 50%;
-            width: 60px;
-            height: 90px;
-            border: 12px solid #2d3436;
-            border-radius: 50%;
-            transform: translateY(-50%);
-            z-index: -1;
-            box-shadow: inset 0 5px 10px rgba(0,0,0,0.8), 0 10px 15px rgba(0,0,0,0.6);
-        }
-        .cauldron-handle.left { left: -30px; }
-        .cauldron-handle.right { right: -30px; }
-
         .marmite {
-            width: 400px;
-            height: 400px;
-            border-radius: 50%;
-            position: relative;
-            border: 18px solid #2d3436;
-            border-top-color: #4a5459;
-            border-bottom-color: #1a1e1f;
+            width: 400px; height: 400px;
+            border-radius: 50%; position: relative;
+            border: 18px solid #2d3436; border-top-color: #4a5459; border-bottom-color: #1a1e1f;
             background: #0a0a0a;
-            box-shadow: 
-                0 30px 50px rgba(0,0,0,0.8), 
-                inset 0 30px 40px rgba(0,0,0,0.9), 
-                0 0 80px rgba(0, 255, 170, 0.1); 
-            overflow: hidden;
-            cursor: grab;
-            touch-action: none; 
+            box-shadow: 0 30px 50px rgba(0,0,0,0.8), inset 0 30px 40px rgba(0,0,0,0.9), 0 0 80px rgba(0, 255, 170, 0.1); 
+            overflow: hidden; cursor: grab; touch-action: none; 
         }
-
         .marmite:active { cursor: grabbing; }
 
         .shaking-light { animation: shake 0.3s infinite; }
         .shaking-hard { animation: shake-violent 0.05s infinite; border-color: #ff4757;}
+        @keyframes shake { 0%, 100% { transform: translate(0,0) rotate(0deg); } 25% { transform: translate(1px,1px) rotate(0.5deg); } 75% { transform: translate(-1px,-1px) rotate(-0.5deg); } }
+        @keyframes shake-violent { 0% { transform: translate(3px,2px) rotate(0deg); } 20% { transform: translate(-3px,-4px) rotate(-2deg); } 100% { transform: translate(-2px,3px) rotate(-2deg); } }
 
-        @keyframes shake {
-            0%, 100% { transform: translate(0, 0) rotate(0deg); }
-            25% { transform: translate(1px, 1px) rotate(0.5deg); }
-            75% { transform: translate(-1px, -1px) rotate(-0.5deg); }
-        }
-        @keyframes shake-violent {
-            0% { transform: translate(3px, 2px) rotate(0deg); }
-            20% { transform: translate(-3px, -4px) rotate(-2deg); }
-            40% { transform: translate(-5px, 0px) rotate(2deg); }
-            60% { transform: translate(0px, 4px) rotate(0deg); }
-            80% { transform: translate(4px, -2px) rotate(2deg); }
-            100% { transform: translate(-2px, 3px) rotate(-2deg); }
-        }
-
-        /* --- LE LIQUIDE / LA POTION --- */
+        /* --- LE LIQUIDE ET FICHIERS --- */
         .potion {
-            width: 100%;
-            height: 100%;
+            width: 100%; height: 100%;
             border-radius: 50%;
             background: radial-gradient(circle at 50% 50%, #00ffaa 0%, #00b09b 30%, #004d40 80%, #000000 100%);
-            position: relative;
-            box-shadow: inset 0 0 60px rgba(0,0,0,1);
+            position: relative; box-shadow: inset 0 0 60px rgba(0,0,0,1);
             transition: filter 0.3s, background 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            display: flex; align-items: center; justify-content: center;
         }
-
         .vortex {
-            position: absolute;
-            width: 200%;
-            height: 200%;
+            position: absolute; width: 200%; height: 200%;
             background: conic-gradient(from 0deg, transparent 0%, rgba(0, 255, 170, 0.2) 25%, transparent 50%, rgba(0, 255, 170, 0.2) 75%, transparent 100%);
-            animation: spin 10s linear infinite;
-            border-radius: 50%;
-            pointer-events: none;
+            animation: spin 10s linear infinite; border-radius: 50%; pointer-events: none;
         }
-
         @keyframes spin { 100% { transform: rotate(360deg); } }
 
-        .potion.boiling-danger {
-            background: radial-gradient(circle at 50% 50%, #ff4757 0%, #c0392b 30%, #4a0000 80%, #000000 100%);
-            filter: brightness(1.3) contrast(1.2);
-            box-shadow: inset 0 0 60px rgba(255, 0, 0, 0.5);
-        }
-        .potion.boiling-danger .vortex {
-            background: conic-gradient(from 0deg, transparent 0%, rgba(255, 71, 87, 0.3) 25%, transparent 50%, rgba(255, 71, 87, 0.3) 75%, transparent 100%);
-            animation: spin 2s linear infinite; 
-        }
+        .potion.boiling-danger { background: radial-gradient(circle at 50% 50%, #ff4757 0%, #c0392b 30%, #4a0000 80%, #000000 100%); }
 
-        /* --- LES FICHIERS --- */
         .file-item {
-            position: absolute;
-            font-weight: 600;
-            font-size: 1rem;
-            color: #fff;
-            padding: 8px 16px;
-            border-radius: 25px;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(5px);
+            position: absolute; font-weight: 600; font-size: 1rem; color: #fff;
+            padding: 8px 16px; border-radius: 25px;
+            background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(5px);
             border: 1px solid rgba(255, 255, 255, 0.3);
-            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
-            user-select: none;
-            white-space: nowrap;
-            transform-origin: center center;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-            pointer-events: none;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8); white-space: nowrap;
+            transform-origin: center center; display: flex; align-items: center; gap: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5); pointer-events: none;
         }
-
-        .type-pdf { border-left: 4px solid #ff4757; }
-        .type-word { border-left: 4px solid #3498db; }
-        .type-excel { border-left: 4px solid #2ecc71; }
-        .type-image { border-left: 4px solid #f39c12; }
+        .type-pdf { border-left: 4px solid #ff4757; } .type-word { border-left: 4px solid #3498db; }
+        .type-excel { border-left: 4px solid #2ecc71; } .type-image { border-left: 4px solid #f39c12; }
         .type-default { border-left: 4px solid #95a5a6; }
 
         .bubble {
-            position: absolute;
-            background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.8), rgba(255,255,255,0.1));
-            border: 1px solid rgba(255,255,255,0.3);
-            border-radius: 50%;
-            animation: rise 3s infinite ease-in;
-            pointer-events: none;
-            box-shadow: 0 0 10px rgba(0, 255, 170, 0.5);
+            position: absolute; background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.8), rgba(255,255,255,0.1));
+            border: 1px solid rgba(255,255,255,0.3); border-radius: 50%;
+            animation: rise 3s infinite ease-in; pointer-events: none; box-shadow: 0 0 10px rgba(0, 255, 170, 0.5);
         }
-        @keyframes rise {
-            0% { transform: translateY(0) scale(1); opacity: 0; }
-            50% { opacity: 1; }
-            100% { transform: translateY(-120px) scale(1.5); opacity: 0; }
-        }
+        @keyframes rise { 0% { transform: translateY(0) scale(1); opacity: 0; } 50% { opacity: 1; } 100% { transform: translateY(-120px) scale(1.5); opacity: 0; } }
 
-        /* --- ANIMATIONS DE FIN --- */
+        /* --- ÉTAPE DE NOMMAGE (Nouveau) --- */
+        .naming-modal {
+            position: fixed; top: 50%; left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            background: var(--glass-bg); backdrop-filter: blur(20px);
+            border: 2px solid rgba(255,255,255,0.2);
+            padding: 40px 60px; border-radius: 20px;
+            text-align: center; box-shadow: 0 20px 70px rgba(0,0,0,0.8);
+            z-index: 100; opacity: 0;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            pointer-events: none;
+        }
+        .naming-modal.active { transform: translate(-50%, -50%) scale(1); opacity: 1; pointer-events: auto; }
+        .naming-modal h2 { margin-top: 0; color: #00ffaa; font-size: 2.5rem; text-shadow: 0 0 15px rgba(0,255,170,0.5);}
+        .naming-modal p { font-size: 1.2rem; margin-bottom: 25px; }
+        
+        .naming-input {
+            width: 100%; padding: 15px; font-size: 1.5rem;
+            border-radius: 12px; border: 1px solid rgba(255,255,255,0.3);
+            background: rgba(0,0,0,0.5); color: white;
+            text-align: center; outline: none; margin-bottom: 25px;
+            box-shadow: inset 0 2px 10px rgba(0,0,0,0.5);
+        }
+        .naming-input:focus { border-color: #00ffaa; box-shadow: 0 0 15px rgba(0,255,170,0.3), inset 0 2px 10px rgba(0,0,0,0.5); }
+
+        /* --- MESSAGE FINAL --- */
         .flash-bang {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            background-color: white; z-index: 999;
-            opacity: 0; pointer-events: none;
+            background-color: white; z-index: 999; opacity: 0; pointer-events: none;
         }
         .flash-bang.explode { animation: flashAnim 1.5s ease-out forwards; }
         @keyframes flashAnim { 0% { opacity: 1; } 100% { opacity: 0; } }
@@ -277,28 +248,19 @@
         .final-message {
             position: fixed; top: 50%; left: 50%;
             transform: translate(-50%, -50%) scale(0) rotate(-5deg);
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            background: var(--glass-bg); backdrop-filter: blur(20px);
             border: 2px solid rgba(255,255,255,0.2);
             color: white; padding: 60px 100px; border-radius: 30px;
-            text-align: center;
-            box-shadow: 0 20px 70px rgba(0, 255, 170, 0.2), inset 0 0 50px rgba(255,255,255,0.05);
-            z-index: 100; opacity: 0;
-            transition: all 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.5);
-            pointer-events: none;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            text-align: center; box-shadow: 0 20px 70px rgba(0, 255, 170, 0.2);
+            z-index: 100; opacity: 0; transition: all 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.5);
+            pointer-events: none; display: flex; flex-direction: column; align-items: center;
         }
-        .final-message h1 { margin: 0; font-size: 4rem; font-weight: 800; text-shadow: 0 0 20px rgba(0,255,170,0.8); }
+        .final-message h1 { margin: 0; font-size: 4rem; font-weight: 800; text-shadow: 0 0 20px rgba(0,255,170,0.8); color: #00ffaa;}
         .final-message p { font-size: 1.5rem; font-weight: 400; margin-top: 15px; color: #dcdde1; }
-        
-        .final-message.active {
-            transform: translate(-50%, -50%) scale(1) rotate(0deg);
-            opacity: 1; pointer-events: auto;
-        }
+        .final-message.active { transform: translate(-50%, -50%) scale(1) rotate(0deg); opacity: 1; pointer-events: auto; }
 
+        .btn-reset { margin-top: 30px; background: linear-gradient(135deg, #8e44ad, #9b59b6); width: auto; padding: 14px 30px; }
+        
         .confetti {
             position: absolute; top: -20px; z-index: 90;
             transform-origin: center; animation: fall linear forwards;
@@ -309,39 +271,62 @@
 </head>
 <body>
 
+    <!-- Le Passe de Combat -->
+    <div class="battle-pass">
+        <h3>🏆 Passe d'Entrepreneur</h3>
+        <div class="bp-tier" id="tier-1">
+            <span class="bp-icon">🔒</span>
+            <div class="bp-text"><span class="bp-level">NIVEAU 1</span><span class="bp-reward">Micro-Entreprise</span></div>
+        </div>
+        <div class="bp-tier" id="tier-2">
+            <span class="bp-icon">🔒</span>
+            <div class="bp-text"><span class="bp-level">NIVEAU 2</span><span class="bp-reward">Incubateur Débloqué</span></div>
+        </div>
+        <div class="bp-tier" id="tier-3">
+            <span class="bp-icon">🔒</span>
+            <div class="bp-text"><span class="bp-level">NIVEAU 3</span><span class="bp-reward">Levée de Fonds (Série A)</span></div>
+        </div>
+        <div class="bp-tier" id="tier-4">
+            <span class="bp-icon">🔒</span>
+            <div class="bp-text"><span class="bp-level">NIVEAU 4</span><span class="bp-reward">Entrée en Bourse</span></div>
+        </div>
+        <div class="bp-tier" id="tier-5">
+            <span class="bp-icon">🔒</span>
+            <div class="bp-text"><span class="bp-level">NIVEAU MAX</span><span class="bp-reward">Statut Licorne 🦄</span></div>
+        </div>
+    </div>
+
     <div class="flash-bang" id="flashBang"></div>
 
-    <div class="status-panel" id="statusPanel">
-        La Marmite est vide...
-    </div>
+    <div class="status-panel" id="statusPanel">La Marmite est vide...</div>
 
     <div class="controls" id="mainControls">
         <input type="file" id="fileInput" multiple>
         <button onclick="document.getElementById('fileInput').click()">
-            <span style="font-size: 1.2em;">✨</span> Ajouter des documents magiques
+            <span style="font-size: 1.2em;">✨</span> Ajouter des documents
         </button>
-
-        <div class="progress-container">
-            <div class="progress-bar" id="progressBar"></div>
-        </div>
+        <div class="progress-container"><div class="progress-bar" id="progressBar"></div></div>
     </div>
 
     <div class="cauldron-wrapper" id="cauldronWrapper">
-        <div class="cauldron-handle left"></div>
-        <div class="cauldron-handle right"></div>
-        
         <div class="marmite" id="marmite">
-            <div class="potion" id="potion">
-                <div class="vortex"></div>
-            </div>
+            <div class="potion" id="potion"><div class="vortex"></div></div>
         </div>
     </div>
 
+    <!-- ÉTAPE INTERMÉDIAIRE : Le nommage -->
+    <div class="naming-modal" id="namingModal">
+        <h2>Fusion Réussie !</h2>
+        <p>Quel nom voulez-vous donner à cette startup ?</p>
+        <input type="text" class="naming-input" id="companyNameInput" placeholder="Ex: TechCorp, OpenAI..." autocomplete="off">
+        <button onclick="submitName()">Baptiser mon entreprise ✨</button>
+    </div>
+
+    <!-- MESSAGE FINAL -->
     <div class="final-message" id="finalMessage">
-        <h1>Entreprise créée ! 🚀</h1>
-        <p>Tu viens de faire ce que 90% des gens n'oseront jamais, transformer une idée en réalité. Maintenant, le vrai jeu commence.</p>
-        <!-- Nouveau bouton pour réinitialiser -->
-        <button class="btn-reset" onclick="resetApp()">Créer une autre entreprise ✨</button>
+        <h1 id="finalCompanyName">Startup</h1>
+        <p>a été officiellement créée.</p>
+        <button class="btn-reset" onclick="resetApp()">Créer une autre entreprise 🔁</button>
     </div>
 
     <script>
@@ -352,13 +337,19 @@
         const cauldronWrapper = document.getElementById('cauldronWrapper');
         const marmite = document.getElementById('marmite');
         const flashBang = document.getElementById('flashBang');
+        const namingModal = document.getElementById('namingModal');
+        const companyNameInput = document.getElementById('companyNameInput');
         const finalMessage = document.getElementById('finalMessage');
+        const finalCompanyName = document.getElementById('finalCompanyName');
         const controls = document.getElementById('mainControls');
 
         let items = [];
         let isCreated = false; 
         
-        // --- VARIABLES DE REMUAGE ---
+        // Système Passe de Combat
+        let companiesCreatedCount = 0;
+        
+        // Remuage
         let isStirring = false;
         let lastMouseAngle = 0;
         let currentSpeedRaw = 0;
@@ -368,8 +359,7 @@
         const MIN_SPEED = 0.03;
         const MAX_SPEED = 0.18;
 
-        // Bulles
-        for(let i=0; i<20; i++) { createBubble(); }
+        for(let i=0; i<20; i++) createBubble();
         function createBubble() {
             const bubble = document.createElement('div');
             bubble.className = 'bubble';
@@ -382,7 +372,6 @@
             potion.appendChild(bubble);
         }
 
-        // --- GESTION DES FICHIERS ---
         function getFileInfo(fileName) {
             const ext = fileName.split('.').pop().toLowerCase();
             if (['pdf'].includes(ext)) return { icon: '📕', class: 'type-pdf' };
@@ -395,9 +384,7 @@
         fileInput.addEventListener('change', function(e) {
             if(isCreated) return;
             const files = e.target.files;
-            for(let i = 0; i < files.length; i++) {
-                addFileToMarmite(files[i].name);
-            }
+            for(let i = 0; i < files.length; i++) addFileToMarmite(files[i].name);
             fileInput.value = ''; 
             updateLogicState();
         });
@@ -405,20 +392,15 @@
         function addFileToMarmite(fileName) {
             let displayName = fileName.length > 12 ? fileName.substring(0, 9) + '...' : fileName;
             const fileData = getFileInfo(fileName);
-
             const span = document.createElement('span');
             span.className = `file-item ${fileData.class}`;
             span.innerHTML = `<span>${fileData.icon}</span> ${displayName}`;
             
             const itemObj = {
-                el: span,
-                angle: Math.random() * Math.PI * 2,
-                radius: Math.random() * 110 + 10, 
-                baseSpeed: 0.005 + Math.random() * 0.01, 
-                centerX: 200, 
-                centerY: 200
+                el: span, angle: Math.random() * Math.PI * 2,
+                radius: Math.random() * 110 + 10, baseSpeed: 0.005 + Math.random() * 0.01, 
+                centerX: 200, centerY: 200
             };
-            
             items.push(itemObj);
             potion.appendChild(span);
             updatePosition(itemObj);
@@ -429,27 +411,22 @@
             if (items.length === 0) {
                 statusPanel.innerText = "La Marmite est vide...";
                 statusPanel.style.color = "rgba(255, 255, 255, 0.7)";
-                statusPanel.style.textShadow = "0 0 10px rgba(0,0,0,0.5)";
             } else if (items.length === 1) {
                 statusPanel.innerText = "Encore 1 document requis...";
                 statusPanel.style.color = "#f1c40f";
-                statusPanel.style.textShadow = "none";
             } else {
                 statusPanel.innerText = "Cliquez et tournez dans la marmite !";
                 statusPanel.style.color = "#00ffaa";
-                statusPanel.style.textShadow = "0 0 10px rgba(0, 255, 170, 0.5)";
             }
         }
 
         function updatePosition(w) {
             const x = w.centerX + w.radius * Math.cos(w.angle);
             const y = w.centerY + w.radius * Math.sin(w.angle);
-            w.el.style.left = x + 'px';
-            w.el.style.top = y + 'px';
+            w.el.style.left = x + 'px'; w.el.style.top = y + 'px';
             w.el.style.transform = `translate(-50%, -50%) rotate(${w.angle * 0.4}rad)`;
         }
 
-        // --- MATHS DE LA SOURIS ---
         function getMouseAngle(e) {
             const rect = marmite.getBoundingClientRect();
             const centerX = rect.left + rect.width / 2;
@@ -477,10 +454,8 @@
             if (!isStirring || isCreated) return;
             const currentAngle = getMouseAngle(e);
             let delta = currentAngle - lastMouseAngle;
-            
             if (delta > Math.PI) delta -= Math.PI * 2;
             if (delta < -Math.PI) delta += Math.PI * 2;
-            
             currentSpeedRaw = delta; 
             lastMouseAngle = currentAngle;
         }
@@ -493,7 +468,6 @@
             updateLogicState();
         }
 
-        // --- BOUCLE PRINCIPALE ---
         function gameLoop() {
             if (isCreated) return;
             
@@ -504,13 +478,11 @@
                 if (smoothedSpeed < MIN_SPEED) {
                     statusPanel.innerText = "Tournez un peu plus vite...";
                     statusPanel.style.color = "#f39c12";
-                    statusPanel.style.textShadow = "none";
                     progressBar.className = "progress-bar";
                     currentProgress = Math.max(0, currentProgress - 0.1);
                 } else if (smoothedSpeed > MAX_SPEED) {
                     statusPanel.innerText = "TROP VITE ! Ça déborde !";
                     statusPanel.style.color = "#ff4757";
-                    statusPanel.style.textShadow = "0 0 10px rgba(255, 71, 87, 0.8)";
                     cauldronWrapper.classList.add('shaking-hard');
                     potion.classList.add('boiling-danger');
                     progressBar.className = "progress-bar danger";
@@ -518,7 +490,6 @@
                 } else {
                     statusPanel.innerText = "Magie en cours... continuez !";
                     statusPanel.style.color = "#00ffaa";
-                    statusPanel.style.textShadow = "0 0 15px rgba(0, 255, 170, 0.8)";
                     cauldronWrapper.classList.remove('shaking-hard');
                     potion.classList.remove('boiling-danger');
                     progressBar.className = "progress-bar perfect";
@@ -543,20 +514,20 @@
             progressBar.style.width = currentProgress + '%';
             
             if (currentProgress >= 100) {
-                triggerCreation();
+                triggerPhase1(); // On déclenche d'abord le flash et la demande de nom
                 return;
             }
-
             requestAnimationFrame(gameLoop);
         }
 
         gameLoop();
 
-        // --- EXPLOSION & CRÉATION ---
-        function triggerCreation() {
+        // --- PHASE 1 : Flash et Demande du Nom ---
+        function triggerPhase1() {
             isCreated = true;
             stopDrag();
 
+            // Flash et disparition de la marmite
             flashBang.classList.add('explode');
             document.body.style.background = 'radial-gradient(circle at 50% 50%, #1a1a2e 0%, #000000 100%)';
             controls.style.opacity = '0';
@@ -565,27 +536,65 @@
             cauldronWrapper.style.transform = 'scale(0) translateY(200px)';
             cauldronWrapper.style.opacity = '0';
 
-            launchConfetti();
-
+            // Afficher le modal de nommage après le flash
             setTimeout(() => {
-                finalMessage.classList.add('active');
+                companyNameInput.value = ''; // Reset input
+                namingModal.classList.add('active');
+                companyNameInput.focus();
             }, 500);
         }
 
-        // --- RÉINITIALISATION (NOUVEAU) ---
+        // Permettre la validation avec la touche Entrée
+        companyNameInput.addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') submitName();
+        });
+
+        // --- PHASE 2 : Validation du nom et Message final ---
+        function submitName() {
+            let name = companyNameInput.value.trim();
+            if (!name) name = "Start-up Sans Nom"; // Sécurité si le champ est vide
+
+            // Masquer le modal
+            namingModal.classList.remove('active');
+            
+            // Mettre à jour le texte du message final
+            finalCompanyName.innerText = name;
+
+            // Débloquer le niveau dans le Battle Pass
+            companiesCreatedCount++;
+            unlockBattlePassTier(companiesCreatedCount);
+
+            // Lancer les confettis et afficher le grand message final
+            launchConfetti();
+            setTimeout(() => {
+                finalMessage.classList.add('active');
+            }, 300);
+        }
+
+        // --- GESTION DU PASSE DE COMBAT ---
+        function unlockBattlePassTier(level) {
+            if (level > 5) return; // Limité à 5 niveaux pour cette démo
+            
+            const tierEl = document.getElementById(`tier-${level}`);
+            if (tierEl) {
+                tierEl.classList.add('unlocked');
+                tierEl.querySelector('.bp-icon').innerText = '✅';
+                // Petite animation sur le Battle Pass pour attirer l'oeil
+                tierEl.style.transform = 'scale(1.1)';
+                setTimeout(() => tierEl.style.transform = 'scale(1.02)', 300);
+            }
+        }
+
+        // --- RÉINITIALISATION ---
         function resetApp() {
             isCreated = false;
             items = [];
             currentProgress = 0;
             isStirring = false;
-            smoothedSpeed = 0;
-            currentSpeedRaw = 0;
 
-            // Nettoyer les fichiers et les confettis (on garde les bulles et le vortex)
             document.querySelectorAll('.file-item').forEach(el => el.remove());
             document.querySelectorAll('.confetti').forEach(el => el.remove());
 
-            // Réinitialiser l'interface UI
             finalMessage.classList.remove('active');
             controls.style.opacity = '1';
             statusPanel.style.opacity = '1';
@@ -596,12 +605,9 @@
             progressBar.style.width = '0%';
             progressBar.className = 'progress-bar';
             
-            // Remettre le fond original
             document.body.style.background = 'radial-gradient(circle at 50% 50%, #2b1055 0%, #000000 100%)';
             
             updateLogicState();
-            
-            // Relancer la boucle d'animation
             gameLoop();
         }
 
@@ -612,17 +618,14 @@
                 conf.className = 'confetti';
                 const isRound = Math.random() > 0.5;
                 const size = Math.random() * 12 + 6;
-                
                 conf.style.width = size + 'px';
                 conf.style.height = (isRound ? size : size * 2) + 'px';
                 conf.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
                 if (isRound) conf.style.borderRadius = '50%';
-                
                 conf.style.left = Math.random() * 100 + 'vw';
                 const duration = Math.random() * 3 + 2.5; 
                 conf.style.animationDuration = duration + 's';
                 conf.style.animationDelay = (Math.random() * 1) + 's'; 
-                
                 document.body.appendChild(conf);
                 setTimeout(() => conf.remove(), (duration + 1) * 1000);
             }
